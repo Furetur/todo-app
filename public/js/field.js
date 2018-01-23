@@ -35,7 +35,7 @@ const field = {};
 
 field._inputField = document.getElementById('add-todo-field');
 
-field.tab = 7 - memory.now.getDay();
+field.tab = 7 - memory.now().getDay();
 field._dayNames = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
 
 field._onEnterKey = function(todoProperties){
@@ -63,7 +63,7 @@ field._getSundayFor = function(date){
 };
 
 field._getDateForDay = function (numberOfDay){
-    const date = this._getSundayFor(memory.now);
+    const date = this._getSundayFor(memory.now());
     date.setDate(date.getDate() + numberOfDay);
     return date
 };
@@ -77,10 +77,10 @@ field.update = function(tab = this.tab){
     this._inputField.placeholder = `Add a to-do for ${tabs._tabNames[tab].toLowerCase()}`;
     if(tab === 0){
         this._inputField.onkeyup = this._onEnterKey({
-            date: this._getSundayFor(memory.now),
+            date: this._getSundayFor(memory.now()),
             organised: false
         })
-    }else if(1 <= tab && tab <= 7 - memory.now.getDay()){
+    }else if(1 <= tab && tab <= 7 - memory.now().getDay()){
         this._inputField.onkeyup = this._onEnterKey({
             date: this._getDateForDay(7 - tab),
             organised: true

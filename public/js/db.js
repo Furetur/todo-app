@@ -58,5 +58,5 @@ db.changeDate = function changeDate(id, date){
 };
 
 db.toToday = function toToday(id){
-    return this.changeDate(id, memory.now)
+    return this.changeDate(id, memory.getNow)
 };

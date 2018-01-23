@@ -3,7 +3,7 @@ async function loadPage(){
 
     tabs.update();
     field.update();
-    mainContent.updateTodoList(memory.thisWeekByDays[memory.now.getDay()]);
+    mainContent.updateTodoList(memory.thisWeekByDays[memory.now().getDay()]);
 
 }
 

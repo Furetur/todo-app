@@ -1,98 +1,88 @@
-const memory = {
-    todos: [],
+const memory = {}
 
-    get now(){
-        return new Date();
-    },
+memory.todos = [];
+memory.now = function() {
+    return new Date();
+};
+memory.thisSunday = function() {
+    return this.getBeginningOfWeek(this.getNow);
+}
+memory.isSameDay = function(date1, date2){
+    return date1.getFullYear() === date2.getFullYear() && date1.getMonth() === date2.getMonth() && date1.getDate() === date2.getDate();
+};
+memory.getBeginningOfWeek = function (date) {
+    const beginning = new Date(date);
+    beginning.setDate(beginning.getDate() - beginning.getDay());
+    return beginning;
+}
 
-    get thisSunday(){
-        return this.getBeginningOfWeek(this.now);
-    },
+memory.thisWeekUnorganised = [];
+memory.thisWeekByDays= [[], [], [], [], [], [], []];
+memory.overdue= [];
 
-    isSameDay(date1, date2){
-        return date1.getFullYear() === date2.getFullYear() && date1.getMonth() === date2.getMonth() && date1.getDate() === date2.getDate();
-    },
+memory.organiseTodos = function (){
+    const thisWeek = this.todos.filter(todo => {
+        return this.isSameDay(this.getBeginningOfWeek(this.getNow), this.getBeginningOfWeek(todo.date));
+    }); //all week
 
-    getBeginningOfWeek(date){
-        const beginning = new Date(date);
-        beginning.setDate(beginning.getDate() - beginning.getDay());
-        return beginning;
-    },
-
-    thisWeekUnorganised: [],
-    thisWeekByDays: [[], [], [], [], [], [], []],
-    overdue: [],
-
-    organiseTodos(){
-        const thisWeek = this.todos.filter(todo => {
-            return this.isSameDay(this.getBeginningOfWeek(this.now), this.getBeginningOfWeek(todo.date));
-        }); //all week
-
-        this.thisWeekUnorganised.length = 0; //clear
-        thisWeek.filter(todo => todo.organised === false).forEach(todo => this.thisWeekUnorganised.push(todo)); //populate thisWeekUnorganised
+    this.thisWeekUnorganised.length = 0; //clear
+    thisWeek.filter(todo => todo.organised === false).forEach(todo => this.thisWeekUnorganised.push(todo)); //populate thisWeekUnorganised
 
 
-        //clear all the days
-        this.thisWeekByDays.forEach(dayTodos => dayTodos.length = 0);
+    //clear all the days
+    this.thisWeekByDays.forEach(dayTodos => dayTodos.length = 0);
 
-        //organise everything
-        thisWeek.filter(todo => todo.organised === true)
-            .forEach(todo => {
-                const dayOfWeek = todo.date.getDay();
-                this.thisWeekByDays[dayOfWeek].push(todo);
-            });
+    //organise everything
+    thisWeek.filter(todo => todo.organised === true)
+        .forEach(todo => {
+            const dayOfWeek = todo.date.getDay();
+            this.thisWeekByDays[dayOfWeek].push(todo);
+        });
 
-        this.overdue.length = 0; // clear
-        this.todos.filter(todo => !thisWeek.includes(todo)).forEach(todo => this.overdue.push(todo)); //populate overdue
+    this.overdue.length = 0; // clear
+    this.todos.filter(todo => !thisWeek.includes(todo)).forEach(todo => this.overdue.push(todo)); //populate overdue
 
-    },
+}
 
-    get(id){
-        return this.todos.find(todo => todo._id === id);
-    },
+memory.get = function (id) {
+    return this.todos.find(todo => todo._id === id);
+}
 
-    add(todo){
-        this.todos.push(todo);
+memory.add = function(todo) {
+    this.todos.push(todo);
+    this.organiseTodos();
+};
+
+memory.remove = function (id){
+    let index = this.todos.findIndex(todo => todo._id === id);
+
+    if(index >= 0){
+        this.todos.splice(index, 1);
         this.organiseTodos();
-    },
+    }
+};
 
-    remove(id){
-        let index = this.todos.findIndex(todo => todo._id === id);
+memory.changeStatus = function(id, newStatus){
+    this.get(id).status = newStatus;
+};
 
-        if(index >= 0){
-            this.todos.splice(index, 1);
-            this.organiseTodos();
-        }
-    },
 
-    changeStatus(id, newStatus){
-        this.get(id).status = newStatus;
-    },
 
-    changeDate(id, newDate){
-        this.get(id).date = new Date(newDate);
-    },
 
-    changeProperty(id, propertyName, value){
-        this.get(id)[propertyName] = value;
-    },
+memory.toToday = function toToday(id) {
+    let todo = this.get(id);
+    todo.date = this.getNow;
+    todo.organised = true;
+    this.organiseTodos();
+};
 
-    toToday(id){
-        let todo = this.get(id);
-        todo.date = this.now;
-        todo.organised = true;
-
-        this.organiseTodos();
-    },
-
-    async update(){
-        this.todos = (await db.getAll()).map(todo => {
-            todo.date = new Date(todo.date);
+memory.update = async function(){
+    this.todos = (await db.getAll()).map(todo => {
+        todo.date = new Date(todo.date);
             return todo
         });
-        this.organiseTodos();
-        return;
-    },
-
-
+    this.organiseTodos();
+    return;
 };
+
+

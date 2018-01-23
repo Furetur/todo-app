@@ -20,7 +20,7 @@ tabs._getCloned = function () {
 
 
 
-tabs._activeTab = 7 - memory.now.getDay();
+tabs._activeTab = 7 - memory.now().getDay();
 
 tabs._addTab = function (title, content, ...additionalClasses) {
     const id = this._loadedTabs.length;
@@ -42,12 +42,12 @@ tabs._addTab = function (title, content, ...additionalClasses) {
 
         this._activeTab = id;
         tab.classList.add('active');
-        mainContent.updateTodoList(content, id !==  7 - memory.now.getDay());
+        mainContent.updateTodoList(content, id !==  7 - memory.now().getDay());
         field.update(id);
     };
 
     //set up badge
-    const badgeCount = content.filter(todo => todo.status === 'undone').length
+    const badgeCount = content.filter(todo => todo.status === 'undone').length;
     if(badgeCount === 0){
         badge.classList.add('invisible');
     }
@@ -77,8 +77,8 @@ tabs.update = function () {
 
         if(id === this._activeTab) classList.push('active');
         if(id === 0 || id === 8) classList.push('h5');
-        if(id === 7 - memory.now.getDay()) classList.push('today');
-        if(id > 7 - memory.now.getDay() && id !== 8) classList.push('disabled');
+        if(id === 7 - memory.now().getDay()) classList.push('today');
+        if(id > 7 - memory.now().getDay() && id !== 8) classList.push('disabled');
 
         let tabContent;
         if(id === 0) tabContent = memory.thisWeekUnorganised;
