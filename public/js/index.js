@@ -7,4 +7,6 @@ async function loadPage(){
 
 }
 
-loadPage();
+loadPage().catch(e => {
+    console.warn('error loading the page:', e);
+});

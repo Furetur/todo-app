@@ -12,16 +12,12 @@ db.request = axios.create({
 
 
 db.add = function add(todo){
-    return this.request.post(this.dbUrl + '/todo/', todo);
-    return fetch(this.dbUrl + '/todo/', {
-        method: 'POST',
-        body: JSON.stringify(todo)
-    })
+    return this.request.post('/todo/', todo);
 };
 
 
 db.remove = function remove(id){
-    return this.request.delete(this.dbUrl + '/todo/' + id)
+    return this.request.delete('/todo/' + id)
 };
 
 db.removeAll = function removeAll(){
