@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="styles.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css" integrity="sha384-Zug+QiDoJOrZ5t4lssLdxGhVrurbmBWopoEl+M6BdEfwnCJZtKxi1KgxUyJq13dy" crossorigin="anonymous">
+
+    <title>Title</title>
+</head>
+<body>
+
+    <div class="row flex-xl-nowrap">
+
+        <div class="col-12 col-md-3 col-xl-2 bd-sidebar">
+            <div class="container mt-5" style="height: 82px;">
+
+            </div>
+            <nav id="tabs" class="nav flex-column nav-pills pl-4 pt-0">
+
+            </nav>
+
+            <!--<ul id="nav-days" class="nav flex-column nav-pills pl-4 pt-0">
+
+            </ul>-->
+
+            <template id="nav-tab-template">
+                <a id="nav-tab-link tab" class="nav-link tab" href="#"><span class="tab-title">Day</span> <span id="nav-tab-badge" class="badge badge-primary">badge_value</span></a>
+            </template>
+
+
+            <template id="nav-tab-big-template">
+                <a id="nav-tab-big-link" class="nav-link disabled" href="#"><span id="nav-tab-text">Day</span> <span id="nav-tab-badge" class="badge badge-primary">badge_value</span></a>
+            </template>
+
+        </div>
+
+
+        <div class="col-12 col-md-8 col-xl-8   bd-content">
+
+            <header class="mb-5">
+                <h1 class="display-3 text-center">A simple todo app</h1>
+            </header>
+
+            <main id="todos">
+                <div class="input-group input-group-sm mb-3">
+                    <input id="add-todo-field" type="text" class="form-control" placeholder="Add a todo" aria-label="Username" aria-describedby="basic-addon1">
+                </div>
+
+                <h6 class="font-weight-light">Undone</h6>
+                <div id="undone-todos" class="container mb-4"></div>
+
+                <h6 class="font-weight-light">Done</h6>
+                <div id="done-todos" class="container"></div>
+            </main>
+
+            <template id="template-undone-todo">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">
+                            <input class="todo-checkbox" type="checkbox" aria-label="Checkbox for following text input">
+                        </div>
+                    </div>
+                    <div class="todo-text form-control border-right-0">A todo</div>
+                    <div class="input-group-append">
+                        <a class="input-group-text bg-white font-italic"><u class="delete-todo">delete</u></a>
+                    </div>
+                </div>
+            </template>
+
+            <template id="template-done-todo">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">
+                            <input class="todo-checkbox" type="checkbox" aria-label="Checkbox for following text input" checked>
+                        </div>
+                    </div>
+                    <div class="form-control border-right-0"><del class="todo-text">A todo</del></div>
+                    <div class="input-group-append">
+                        <a class="input-group-text bg-white font-italic"><u class="delete-todo">delete</u></a>
+                    </div>
+                </div>
+            </template>
+            <template id="template-other-day-undone-todo">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">
+                            <input class="todo-checkbox" type="checkbox" aria-label="Checkbox for following text input">
+                        </div>
+                    </div>
+                    <div class="todo-text form-control border-right-0">A todo</div>
+                    <div class="input-group-append">
+                        <a class="input-group-text bg-white font-italic"><u class="do-today-todo">do it today</u></a>
+                    </div>
+                    <div class="input-group-append">
+                        <a class="input-group-text bg-white font-italic border-left-0"><u class="delete-todo">delete</u></a>
+                    </div>
+                </div>
+            </template>
+
+        </div>
+
+    </div>
+
+
+
+
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <script type="text/javascript" src="js/db.js"></script>
+    <script type="text/javascript" src="js/memory.js"></script>
+    <script type="text/javascript" src="js/todo.js"></script>
+    <script type="text/javascript" src="js/tabs.js"></script>
+    <script type="text/javascript" src="js/field.js"></script>
+    <script type="text/javascript" src="js/main-content.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+</body>
+</html>

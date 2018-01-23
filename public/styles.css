@@ -1,0 +1,36 @@
+.delete-todo, .do-today-todo{
+    cursor: pointer;
+}
+
+
+
+.badge-primary-inverse{
+
+}
+
+.nav-link.active>.badge-primary{
+    background-color: #fff;
+    color: #007bff;
+}
+
+.nav-link.h5{
+    color: #007bff;
+}
+
+.nav-link.active.disabled{
+    background-color: #868e96 !important;
+}
+
+.nav-link.disabled>.badge-primary{
+    background-color: #868e96 !important;
+    color: #ffffff !important;
+}
+
+.nav-link.active.disabled>.badge-primary{
+    background-color: #ffffff !important;
+    color: #868e96 !important;
+}
+
+.today>.tab-title{
+    font-weight: 700!important;
+}
