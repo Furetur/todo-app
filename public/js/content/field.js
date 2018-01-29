@@ -1,36 +1,3 @@
-function updateTodoField(placeholder, additionalTodoDataOrFn){
-    const addTodoField = document.getElementById('add-todo-field');
-
-    if(placeholder === false){
-        //disable the to-do field
-        addTodoField.disabled = true;
-        addTodoField.placeholder = 'you cant add todos here';
-        addTodoField.onkeyup = () => {};
-        return;
-    }
-
-    addTodoField.disabled = false;
-    addTodoField.placeholder = placeholder;
-
-    addTodoField.onkeyup = function(event) {
-        event.preventDefault();
-        if (event.keyCode === 13) {
-            if(typeof additionalTodoDataOrFn === 'object'){
-                addTodo(addTodoField.value, additionalTodoDataOrFn)
-                    .catch(e => {
-                        console.warn('error while adding a todo:', e);
-                    })
-            }else if(typeof  additionalTodoDataOrFn === 'function'){
-                additionalTodoDataOrFn(addTodoField.value);
-            }
-
-            addTodoField.value = '';
-            tabs.update();
-            mainContent.updateTodoList();
-        }
-    }
-}
-
 const field = {};
 
 field._inputField = document.getElementById('add-todo-field');

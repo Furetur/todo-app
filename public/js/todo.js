@@ -8,7 +8,7 @@ function addTodo(action, additionalProperties){
         todo[propertyName] = additionalProperties[propertyName]
     }
 
-    memory.add(todo);
+    memory.put(todo);
 
     return db.add(todo);
 }
