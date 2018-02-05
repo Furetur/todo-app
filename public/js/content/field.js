@@ -7,10 +7,10 @@ field._dayNames = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'frid
 
 field._onEnterKey = function(todoProperties){
 
-    return function onKeyUp(event){
+    return async function onKeyUp(event){
         event.preventDefault();
         if (event.keyCode === 13) {
-            addTodo(field._inputField.value, todoProperties)
+            await addTodo(field._inputField.value, todoProperties)
                 .catch(e => {
                     console.log('error while adding a todo:', e);
                 });

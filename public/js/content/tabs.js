@@ -14,7 +14,7 @@ tabs._clear = function(){
 };
 
 
-tabs._getCloned = function () {
+tabs._getCloned = function() {
     return this._tabTemplate.content.cloneNode(true).querySelector('.tab');
 };
 
@@ -22,21 +22,21 @@ tabs._getCloned = function () {
 
 tabs._activeTab = 7 - memory.now().getDay();
 
-tabs._addTab = function (title, content, ...additionalClasses) {
+tabs._addTab = function(title, content, ...additionalClasses) {
     const id = this._loadedTabs.length;
     const tab = this._getCloned();
     const tabTitle = tab.querySelector('.tab-title');
     const badge = tab.querySelector('.badge');
 
-    //set the title
+    // set the title
     tabTitle.textContent = title;
 
-    //style
+    // style
     additionalClasses.forEach(cssClass => {
         tab.classList.add(cssClass)
     });
 
-    //onclick
+    // onclick
     tab.onclick = (event) => {
         this._loadedTabs[this._activeTab].classList.remove('active');
 
@@ -46,14 +46,14 @@ tabs._addTab = function (title, content, ...additionalClasses) {
         field.update(id);
     };
 
-    //set up badge
+    // set up badge
     const badgeCount = content.filter(todo => todo.status === 'undone').length;
     if(badgeCount === 0){
         badge.classList.add('invisible');
     }
     badge.textContent = badgeCount;
 
-    //render
+    // render
     this._loadTab(tab);
 
 };
@@ -64,11 +64,22 @@ tabs._loadTab = function (tab) {
 };
 
 
+tabs.getTodosForTab = function(){
+    if(this._activeTab === 0){
+        return memory.thisWeekUnorganised;
+    }
+    if(this._activeTab === 8){
+        return memory.overdue;
+    }
+    return memory.thisWeekByDays[7 - this._activeTab];
+};
+
+
 tabs._dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 tabs._tabNames = ['This Week', ...tabs._dayNames.reverse(), 'Overdue'];
 
 
-tabs.update = function () {
+tabs.update = function() {
     this._clear();
 
 
@@ -87,9 +98,4 @@ tabs.update = function () {
 
         this._addTab(this._tabNames[id], tabContent, ...classList);
     });
-
 };
-
-
-
-

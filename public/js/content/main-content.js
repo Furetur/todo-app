@@ -54,8 +54,9 @@ const mainContent = {
     templateUndoneTodoOtherDay: document.getElementById('template-other-day-undone-todo'),
 
 
-    updateTodoList(todos = this.todos, otherDay = this.otherDay){
-        this.todos = todos;
+    async updateTodoList(todos, otherDay = this.otherDay){
+        await memory.organiseTodos();
+        todos = tabs.getTodosForTab();
         this.otherDay = otherDay === true;
 
         this.clear(this.undoneTodosContainer);

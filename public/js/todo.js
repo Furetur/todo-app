@@ -45,11 +45,6 @@ async function updateDatabase(){
      }
 }
 
-async function updateContent(){
-    await memory.organiseTodos();
-    mainContent.updateTodoList();
-}
-
 
 async function addTodo(action, additionalProperties){
     const todo = {
@@ -63,33 +58,33 @@ async function addTodo(action, additionalProperties){
 
     await memory.put(todo);
     await updateDatabase();
-    updateContent();
+    mainContent.updateTodoList();
 }
 
 
 async function removeTodo(todo){
     await memory.remove(todo._id);
     await updateDatabase();
-    updateContent();
+    mainContent.updateTodoList();
 }
 
 
 async function markAsDone(todo){
     await memory.changeStatus(todo._id, 'done');
     await updateDatabase();
-    updateContent();
+    mainContent.updateTodoList();
 }
 
 
 async function markAsUndone(todo){
     await memory.changeStatus(todo._id, 'undone');
     await updateDatabase();
-    updateContent();
+    mainContent.updateTodoList();
 }
 
 
 async function doToday(todo){
     await memory.toToday(todo._id);
     await updateDatabase();
-    updateContent();
+    mainContent.updateTodoList();
 }
