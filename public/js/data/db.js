@@ -6,7 +6,7 @@ db.request = axios.create({
     baseURL: 'http://localhost:6969/',
     timeout: 1000,
     headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
     }
 });
 
@@ -17,7 +17,7 @@ db.add = function add(todo){
 
 
 db.remove = function remove(id){
-    return this.request.delete('/todo/' + id)
+    return this.request.delete('/todo/' + id);
 };
 
 db.removeAll = function removeAll(){
@@ -36,6 +36,11 @@ db.getAll = function getAll(){
 };
 
 
+db.update = function update(todo){
+    return this.request.put('/todo/' + todo._id, todo);
+};
+
+
 db.changeStatus = function changeStatus(id, status){
     return this.request.put('/todo/' + id, {
         status: status
@@ -47,10 +52,6 @@ db.changeDate = function changeDate(id, date){
     return this.request.put('/todo/' + id, {
         date: date
     });
-    return fetch(this.dbUrl + '/todo/' + id, {
-        method: 'PUT',
-        body: JSON.stringify({date})
-    })
 };
 
 db.toToday = function toToday(id){

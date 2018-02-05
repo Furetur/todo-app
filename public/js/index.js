@@ -1,17 +1,16 @@
-alertify.set('notifier','position', 'bottom-left');
+alertify.set('notifier', 'position', 'bottom-left');
 
-function updateContent(){
+async function updateContent(){
+    await memory.organiseTodos();
     tabs.update();
     field.update();
     mainContent.updateTodoList(memory.thisWeekByDays[memory.now().getDay()]);
 }
 
 async function loadPage(){
-    await memory.organiseTodos();
-    updateContent();
+    await updateContent();
     await memory.update();
-    updateContent();
-    
+    await updateContent();
 }
 
 function registerServiceWorker(){
@@ -40,9 +39,9 @@ function registerServiceWorker(){
         console.warn('failed to register service worker:', e);
     })
 
-    let refreshing; //this works around a bug in 'Force on reload'
+    let refreshing; // this works around a bug in 'Force on reload'
     navigator.serviceWorker.addEventListener('controllerchange', () => {
-        //controlling service worker has changed
+        // controlling service worker has changed
         if(refreshing) return;
         window.location.reload();
         refreshing = true;
@@ -63,8 +62,8 @@ function trackInstallingWorker(worker){
 function updateReady(worker){
     alertify.message('Theres an update ready. Click to refresh', 0, () => {
         worker.postMessage({
-            action: 'skipWaiting'
-        })
+            action: 'skipWaiting',
+        });
     });
 }
 

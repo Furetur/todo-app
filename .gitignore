@@ -2,3 +2,4 @@ node_modules
 .idea
 .vsconfig
 .vscode
+todo-app.code-workspace

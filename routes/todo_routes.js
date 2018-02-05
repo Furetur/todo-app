@@ -13,6 +13,10 @@ const Todo = mongoose.model('Todo', todoSchema);
 module.exports = function(app, db){
 
     //get a to-do
+
+    app.get('/ping', (req, res) => {
+        res.send('pong');
+    });
     app.get('/todo/:id', (req, res) => {
         const id = req.params.id;
 
