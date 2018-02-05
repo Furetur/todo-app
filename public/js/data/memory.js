@@ -136,8 +136,9 @@ memory.toToday = function toToday(id) {
 
 
 memory.update = async function(){
+    const todos = await db.getAll();
     await this._offlineStore.clear();
-    (await db.getAll()).map(todo => {
+    todos.map(todo => {
         todo.date = new Date(todo.date);
         return todo;
     }).forEach(async todo => {
